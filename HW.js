@@ -537,6 +537,13 @@ while (opcode != 99) {
 	} else if (opcode == 11) {
 		let result = hexCompliment(accumulator);
 		resultHex = result.toUpperCase();
+		if (resultHex.length == 1) {
+			resultHex = "000" + resultHex;
+		} else if (resultHex.length == 2) {
+			resultHex = "00" + resultHex;
+		} else if (resultHex.length == 3) {
+			resultHex = "0" + resultHex;
+		}
 		accumulator = resultHex;
 		console.log("Accumulator: " + accumulator);
 		table[counter] = {
