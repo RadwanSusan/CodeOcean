@@ -26,7 +26,6 @@ let opcode = prompt(
 );
 let counter = 0;
 let hexCompliment = (str) => {
-	// function to get the compliment of a hexadecimal number
 	let i;
 	let complement = "";
 	for (i = 0; i < str.length; i++) {
@@ -546,7 +545,6 @@ while (opcode != 99) {
 			AC: accumulator,
 		};
 	} else if (opcode == 12) {
-		// DIVA
 		let choice = prompt(
 			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
 		);
