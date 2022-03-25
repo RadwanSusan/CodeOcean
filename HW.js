@@ -22,7 +22,7 @@ if (memoryTable[programCounter] == undefined) {
 	throw new Error("Memory address not found");
 }
 let opcode = prompt(
-	"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 99 - exit ) : "
+	"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : "
 );
 let counter = 0;
 let hexCompliment = (str) => {
@@ -61,22 +61,22 @@ let hexCompliment = (str) => {
 			case "9":
 				complement += "6";
 				break;
-			case "a":
+			case "A":
 				complement += "5";
 				break;
-			case "b":
+			case "B":
 				complement += "4";
 				break;
-			case "c":
+			case "C":
 				complement += "3";
 				break;
-			case "d":
+			case "D":
 				complement += "2";
 				break;
-			case "e":
+			case "E":
 				complement += "1";
 				break;
-			case "f":
+			case "F":
 				complement += "0";
 				break;
 		}
@@ -183,8 +183,7 @@ while (opcode != 99) {
 		);
 		if (choice == 1) {
 			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = parseInt(accumulator, 16) / parseInt(operand, 16);
-			result = Math.trunc(result);
+			let result = parseInt(accumulator, 16) - parseInt(operand, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
 			let resultHexLength = resultHex.length;
@@ -205,7 +204,7 @@ while (opcode != 99) {
 		} else if (choice == 2) {
 			let operand = prompt("Enter operand address: ");
 			let operandHex = memoryTable[operand];
-			let result = parseInt(accumulator, 16) / parseInt(operandHex, 16);
+			let result = parseInt(accumulator, 16) - parseInt(operandHex, 16);
 			result = Math.trunc(result);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
@@ -546,6 +545,56 @@ while (opcode != 99) {
 			IR: memoryTable[programCounter],
 			AC: accumulator,
 		};
+	} else if (opcode == 12) {
+		// DIVA
+		let choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		);
+		if (choice == 1) {
+			let operand = prompt("Enter operand value - Format=> (0000): ");
+			let result = parseInt(accumulator, 16) / parseInt(operand, 16);
+			result = Math.trunc(result);
+			let resultHex = result.toString(16);
+			resultHex = resultHex.toUpperCase();
+			let resultHexLength = resultHex.length;
+			if (resultHexLength == 1) {
+				resultHex = "000" + resultHex;
+			} else if (resultHexLength == 2) {
+				resultHex = "00" + resultHex;
+			} else if (resultHexLength == 3) {
+				resultHex = "0" + resultHex;
+			}
+			accumulator = resultHex;
+			console.log("Accumulator: " + accumulator);
+			table[counter] = {
+				PC: programCounter,
+				IR: memoryTable[programCounter],
+				AC: accumulator,
+			};
+		}
+		if (choice == 2) {
+			let operand = prompt("Enter operand address: ");
+			let operandHex = memoryTable[operand];
+			let result = parseInt(accumulator, 16) / parseInt(operandHex, 16);
+			result = Math.trunc(result);
+			let resultHex = result.toString(16);
+			resultHex = resultHex.toUpperCase();
+			let resultHexLength = resultHex.length;
+			if (resultHexLength == 1) {
+				resultHex = "000" + resultHex;
+			} else if (resultHexLength == 2) {
+				resultHex = "00" + resultHex;
+			} else if (resultHexLength == 3) {
+				resultHex = "0" + resultHex;
+			}
+			accumulator = resultHex;
+			console.log("Accumulator: " + accumulator);
+			table[counter] = {
+				PC: programCounter,
+				IR: memoryTable[programCounter],
+				AC: accumulator,
+			};
+		}
 	} else {
 		console.log("Invalid opcode");
 	}
@@ -553,7 +602,7 @@ while (opcode != 99) {
 	++programCounter;
 	programCounter = programCounter.toString();
 	opcode = prompt(
-		"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 99 - exit ) : "
+		"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : "
 	);
 }
 console.log("--------------------------------------------------------\n\n");
