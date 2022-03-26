@@ -1,3 +1,4 @@
+// jshint esversion:6
 let prompt = require("prompt-sync")();
 let table = {};
 let memoryTable = {
