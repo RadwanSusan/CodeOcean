@@ -1,7 +1,7 @@
 // jshint esversion:6
-let prompt = require("prompt-sync")();
-let table = {};
-let memoryTable = {
+const prompt = require("prompt-sync")();
+const table = {};
+const memoryTable = {
 	400: "2A3C",
 	401: "2A3D",
 	402: "2A3E",
@@ -23,10 +23,10 @@ if (memoryTable[programCounter] == undefined) {
 	throw new Error("Memory address not found");
 }
 let opcode = prompt(
-	"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : "
+	"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : ",
 );
 let counter = 0;
-let hexCompliment = (str) => {
+const hexCompliment = (str) => {
 	let i;
 	let complement = "";
 	for (i = 0; i < str.length; i++) {
@@ -83,72 +83,72 @@ let hexCompliment = (str) => {
 	}
 	return complement;
 };
-let bitwiseAND = (str1, str2) => {
-	var num1 = parseInt(str1, 16);
-	var num2 = parseInt(str2, 16);
-	var result = num1 & num2;
+const bitwiseAND = (str1, str2) => {
+	const num1 = parseInt(str1, 16);
+	const num2 = parseInt(str2, 16);
+	const result = num1 & num2;
 	return result.toString(16);
 };
-let BitwiseOR = (str1, str2) => {
-	var num1 = parseInt(str1, 16);
-	var num2 = parseInt(str2, 16);
-	var result = num1 | num2;
+const BitwiseOR = (str1, str2) => {
+	const num1 = parseInt(str1, 16);
+	const num2 = parseInt(str2, 16);
+	const result = num1 | num2;
 	return result.toString(16);
 };
-let BitwiseNOR = (str1, str2) => {
-	var num1 = parseInt(str1, 16);
-	var num2 = parseInt(str2, 16);
-	var result = num1 | num2;
+const BitwiseNOR = (str1, str2) => {
+	const num1 = parseInt(str1, 16);
+	const num2 = parseInt(str2, 16);
+	let result = num1 | num2;
 	result.toString(16);
 	if (result.length == 1) {
-		result = "000" + result;
+		result = `000${result}`;
 	} else if (result.length == 2) {
-		result = "00" + result;
+		result = `00${result}`;
 	} else if (result.length == 3) {
-		result = "0" + result;
+		result = `0${result}`;
 	}
 	return hexCompliment(result);
 };
-let BitwiseXOR = (str1, str2) => {
-	var num1 = parseInt(str1, 16);
-	var num2 = parseInt(str2, 16);
-	var result = num1 ^ num2;
+const BitwiseXOR = (str1, str2) => {
+	const num1 = parseInt(str1, 16);
+	const num2 = parseInt(str2, 16);
+	const result = num1 ^ num2;
 	return result.toString(16);
 };
-let BitwiseXNOR = (str1, str2) => {
-	var num1 = parseInt(str1, 16);
-	var num2 = parseInt(str2, 16);
-	var result = num1 ^ num2;
+const BitwiseXNOR = (str1, str2) => {
+	const num1 = parseInt(str1, 16);
+	const num2 = parseInt(str2, 16);
+	let result = num1 ^ num2;
 	result = result.toString(16);
 	if (result.length == 1) {
-		result = "000" + result;
+		result = `000${result}`;
 	} else if (result.length == 2) {
-		result = "00" + result;
+		result = `00${result}`;
 	} else if (result.length == 3) {
-		result = "0" + result;
+		result = `0${result}`;
 	}
 	return hexCompliment(result);
 };
 while (opcode != 99) {
 	if (opcode == 1) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = parseInt(accumulator, 16) + parseInt(operand, 16);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = parseInt(accumulator, 16) + parseInt(operand, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -156,21 +156,21 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = parseInt(accumulator, 16) + parseInt(operandHex, 16);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = parseInt(accumulator, 16) + parseInt(operandHex, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -178,43 +178,43 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 2) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = parseInt(accumulator, 16) - parseInt(operand, 16);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = parseInt(accumulator, 16) - parseInt(operand, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
 			let result = parseInt(accumulator, 16) - parseInt(operandHex, 16);
 			result = Math.trunc(result);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
 			console.log("Accumulator: " + accumulator);
@@ -224,11 +224,11 @@ while (opcode != 99) {
 				AC: accumulator,
 			};
 		} else {
-			console.log("Invalid choice");
+			console.log(`Invalid choice`);
 		}
 	} else if (opcode == 3) {
-		let address = prompt("Enter operand (address): ");
-		console.log("Accumulator: " + accumulator);
+		const address = prompt("Enter operand (address): ");
+		console.log(`Accumulator: ${accumulator}`);
 		memoryTable[parseInt(address)] = accumulator;
 		table[counter] = {
 			PC: programCounter,
@@ -236,119 +236,119 @@ while (opcode != 99) {
 			AC: accumulator,
 		};
 	} else if (opcode == 4) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
+			const operand = prompt("Enter operand value - Format=> (0000): ");
 			accumulator = operand;
 			accumulator = accumulator.toUpperCase();
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
 			accumulator = operandHex;
 			accumulator = accumulator.toUpperCase();
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else {
-			console.log("Invalid choice");
+			console.log(`Invalid choice`);
 		}
 	} else if (opcode == 5) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = parseInt(accumulator, 16) * parseInt(operand, 16);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = parseInt(accumulator, 16) * parseInt(operand, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = parseInt(accumulator, 16) * parseInt(operandHex, 16);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = parseInt(accumulator, 16) * parseInt(operandHex, 16);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else {
-			console.log("Invalid choice");
+			console.log(`Invalid choice`);
 		}
 	} else if (opcode == 6) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = bitwiseAND(accumulator, operand);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = bitwiseAND(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
 				AC: accumulator,
 			};
 		} else if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = bitwiseAND(accumulator, operandHex);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = bitwiseAND(accumulator, operandHex);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -356,23 +356,23 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 7) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = bitwiseOR(accumulator, operand);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = bitwiseOR(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -380,20 +380,20 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = bitwiseOR(accumulator, operandHex);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = bitwiseOR(accumulator, operandHex);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -401,23 +401,23 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 8) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = BitwiseNOR(accumulator, operand);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = BitwiseNOR(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -425,20 +425,20 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = BitwiseNOR(accumulator, operandHex);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = BitwiseNOR(accumulator, operandHex);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -446,23 +446,23 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 9) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = bitwiseXOR(accumulator, operand);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = bitwiseXOR(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -470,20 +470,20 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = bitwiseXOR(accumulator, operandHex);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = bitwiseXOR(accumulator, operandHex);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -491,23 +491,23 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 10) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
-			let result = BitwiseXNOR(accumulator, operand);
+			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const result = BitwiseXNOR(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -515,20 +515,20 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
-			let result = BitwiseXNOR(accumulator, operand);
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
+			const result = BitwiseXNOR(accumulator, operand);
 			resultHex = result.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -536,42 +536,42 @@ while (opcode != 99) {
 			};
 		}
 	} else if (opcode == 11) {
-		let result = hexCompliment(accumulator);
+		const result = hexCompliment(accumulator);
 		resultHex = result.toUpperCase();
 		if (resultHex.length == 1) {
-			resultHex = "000" + resultHex;
+			resultHex = `000${resultHex}`;
 		} else if (resultHex.length == 2) {
-			resultHex = "00" + resultHex;
+			resultHex = `00${resultHex}`;
 		} else if (resultHex.length == 3) {
-			resultHex = "0" + resultHex;
+			resultHex = `0${resultHex}`;
 		}
 		accumulator = resultHex;
-		console.log("Accumulator: " + accumulator);
+		console.log(`Accumulator: ${accumulator}`);
 		table[counter] = {
 			PC: programCounter,
 			IR: memoryTable[programCounter],
 			AC: accumulator,
 		};
 	} else if (opcode == 12) {
-		let choice = prompt(
-			"Enter your choice for operand: ( 1 - value, 2 - address ) : "
+		const choice = prompt(
+			`Enter your choice for operand: ( 1 - value, 2 - address ) : `,
 		);
 		if (choice == 1) {
-			let operand = prompt("Enter operand value - Format=> (0000): ");
+			const operand = prompt("Enter operand value - Format=> (0000): ");
 			let result = parseInt(accumulator, 16) / parseInt(operand, 16);
 			result = Math.trunc(result);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -579,22 +579,22 @@ while (opcode != 99) {
 			};
 		}
 		if (choice == 2) {
-			let operand = prompt("Enter operand address: ");
-			let operandHex = memoryTable[operand];
+			const operand = prompt("Enter operand address: ");
+			const operandHex = memoryTable[operand];
 			let result = parseInt(accumulator, 16) / parseInt(operandHex, 16);
 			result = Math.trunc(result);
 			let resultHex = result.toString(16);
 			resultHex = resultHex.toUpperCase();
-			let resultHexLength = resultHex.length;
+			const resultHexLength = resultHex.length;
 			if (resultHexLength == 1) {
-				resultHex = "000" + resultHex;
+				resultHex = `000${resultHex}`;
 			} else if (resultHexLength == 2) {
-				resultHex = "00" + resultHex;
+				resultHex = `00${resultHex}`;
 			} else if (resultHexLength == 3) {
-				resultHex = "0" + resultHex;
+				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -602,16 +602,16 @@ while (opcode != 99) {
 			};
 		}
 	} else {
-		console.log("Invalid opcode");
+		console.log(`Invalid opcode`);
 	}
 	++counter;
 	++programCounter;
 	programCounter = programCounter.toString();
 	opcode = prompt(
-		"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : "
+		`Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : `,
 	);
 }
-console.log("--------------------------------------------------------\n\n");
+console.log(`--------------------------------------------------------\n\n`);
 console.table(memoryTable);
-console.log("\n\n");
+console.log(`\n\n`);
 console.table(table);
