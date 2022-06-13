@@ -1,6 +1,6 @@
 // jshint esversion:6
 const prompt = require("prompt-sync")();
-let memoryAddressSpace = prompt("Enter the memory address space: ");
+const memoryAddressSpace = prompt("Enter the memory address space: ");
 const cacheSize = prompt("Enter the cache size: ");
 const blockSize = prompt("Enter the block size: ");
 const numberOfBlocks = (blockSize) => {
