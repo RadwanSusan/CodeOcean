@@ -1,3 +1,13 @@
+/**
+ * The above function calculates the number of blocks, sets, and tags for a given cache size, block
+ * size, and memory address space.
+ *
+ * @param addressSpace The size of the memory address space in bytes.
+ * @param cacheSize The size of the cache in bytes.
+ * @param blockSize The size of each block in bytes.
+ *
+ * @return The number of blocks, sets, and tags for each type of mapping.
+ */
 #include <iostream>
 #include <cmath>
 using namespace std;

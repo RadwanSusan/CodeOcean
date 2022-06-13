@@ -1,4 +1,5 @@
 // jshint esversion:6
+/* A program that calculates the number of bits needed for the tag, set, and block. */
 const prompt = require("prompt-sync")();
 const memoryAddressSpace = prompt("Enter the memory address space: ");
 const cacheSize = prompt("Enter the cache size: ");

@@ -1,4 +1,11 @@
 // jshint esversion:6
+/**
+ * It takes two strings, splits them into arrays, counts the number of times each word appears in each
+ * string, and then returns the cosine similarity of the two arrays
+ * @param doc - The document you want to compare to the query.
+ * @param query - The query string that you want to compare to the document.
+ * @returns The cosine similarity of the two strings.
+ */
 const theRADMethod = (doc, query) => {
 	doc = doc.toLowerCase();
 	query = query.toLowerCase();
