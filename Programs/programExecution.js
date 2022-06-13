@@ -17,13 +17,13 @@ const memoryTable = {
 	673: "0001",
 };
 console.table(memoryTable);
-let accumulator = prompt("Enter the value of accumulator: ");
-let programCounter = prompt("Enter the value of program counter: ");
+let accumulator = prompt(`Enter the value of accumulator: `);
+let programCounter = prompt(`Enter the value of program counter: `);
 if (memoryTable[programCounter] == undefined) {
-	throw new Error("Memory address not found");
+	throw new Error(`Memory address not found`);
 }
 let opcode = prompt(
-	"Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : ",
+	`Enter opcode: ( 1 - ADDA, 2 - SUBA, 3 - STOA, 4 - LDA, 5 - MULA, 6 - ANDA, 7 - ORA, 8 - NORA, 9 - XORA, 10 - XNORA, 11 - NOTA, 12 - DIVA, 99 - exit ) : `,
 );
 let counter = 0;
 const hexCompliment = (str) => {
@@ -217,7 +217,7 @@ while (opcode != 99) {
 				resultHex = `0${resultHex}`;
 			}
 			accumulator = resultHex;
-			console.log("Accumulator: " + accumulator);
+			console.log(`Accumulator: ${accumulator}`);
 			table[counter] = {
 				PC: programCounter,
 				IR: memoryTable[programCounter],
@@ -227,7 +227,7 @@ while (opcode != 99) {
 			console.log(`Invalid choice`);
 		}
 	} else if (opcode == 3) {
-		const address = prompt("Enter operand (address): ");
+		const address = prompt(`Enter operand (address): `);
 		console.log(`Accumulator: ${accumulator}`);
 		memoryTable[parseInt(address)] = accumulator;
 		table[counter] = {
