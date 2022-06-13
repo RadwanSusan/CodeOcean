@@ -316,7 +316,7 @@ while (opcode != 99) {
 			"Enter your choice for operand: ( 1 - value, 2 - address ) : ",
 		);
 		if (choice == 1) {
-			const operand = prompt("Enter operand value - Format=> (0000): ");
+			const operand = prompt(`Enter operand value - Format=> (0000): `);
 			const result = bitwiseAND(accumulator, operand);
 			resultHex = result.toUpperCase();
 			const resultHexLength = resultHex.length;
