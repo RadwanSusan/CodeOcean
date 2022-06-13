@@ -1,34 +1,8 @@
 // jshint esversion:6
 const prompt = require("prompt-sync")();
-let memoryAddressSpace = prompt(
-	"Enter the memory address type: (1:bits, 2:bytes, 3:kilobytes, 4:megabytes, 5:gigabytes): ",
-);
-switch (memoryAddressSpace) {
-	case "1":
-		memoryAddressSpace = prompt("Enter the memory address space: ");
-		break;
-	case "2":
-		memoryAddressSpace = prompt("Enter the memory address space: ");
-		memoryAddressSpace *= 8;
-		break;
-	case "3":
-		memoryAddressSpace = prompt("Enter the memory address space: ");
-		memoryAddressSpace = memoryAddressSpace * 8 * 1024;
-		break;
-	case "4":
-		memoryAddressSpace = prompt("Enter the memory address space: ");
-		memoryAddressSpace = memoryAddressSpace * 8 * 1024 * 1024;
-		break;
-	case "5":
-		memoryAddressSpace = prompt("Enter the memory address space: ");
-		memoryAddressSpace = memoryAddressSpace * 8 * 1024 * 1024 * 1024;
-		break;
-	default:
-		console.log("Invalid input");
-}
+let memoryAddressSpace = prompt("Enter the memory address space: ");
 const cacheSize = prompt("Enter the cache size: ");
 const blockSize = prompt("Enter the block size: ");
-// memoryAddressSpace = Math.round(Math.log2(memoryAddressSpace));
 const numberOfBlocks = (blockSize) => {
 	return Math.round(Math.log2(blockSize));
 };
@@ -43,6 +17,7 @@ let Arr = [];
 Arr.Block = numberOfBlocks(blockSize);
 Arr.Set = numberOfSets(cacheSize * 1024, blockSize);
 Arr.Tag = numberOfTags(memoryAddressSpace, Arr.Set, Arr.Block);
+console.log(`\n \n Memory Length: ${Arr.Tag + Arr.Set + Arr.Block} \n\n`);
 console.table(Arr);
 console.log(`\n 2-way associative Mapping Method: \n`);
 Arr = [];

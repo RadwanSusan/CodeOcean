@@ -27,6 +27,8 @@ int main()
    int block = numberOfBlocks(blockSize);
    int set = numberOfSets(cacheSize * 1024, blockSize);
    int tag = numberOfTags(memoryAddressSpace, set, blockSize);
+   int length = block + set + tag;
+   cout << "Memory Length: " << length << endl;
    cout << "Direct Mapping :" << endl;
    cout << "Number of blocks: " << block << endl;
    cout << "Number of sets: " << set << endl;
